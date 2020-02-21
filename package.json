@@ -20,16 +20,20 @@
   ],
   "author": "Luiz Henrique Naspolini",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.15.2",
     "cors": "^2.8.0",
     "express": "4.14.0",
     "helmet": "^3.21.2",
+    "hpp": "^0.2.3",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/node": "^13.7.1",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.2",
+    "fresh": ">=0.5.2",
+    "mime": ">=1.4.1"
   },
   "license": "ISC"
 }

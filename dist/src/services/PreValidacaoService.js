@@ -33,7 +33,7 @@ class PreValidacaoService {
                 }
             }
             fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/Parametros - ${uuid}.json`), JSON.stringify(data.parametrosBanco));
-            let htmlData = header_1.default(data.validadorTce, uuid, data.parametrosBanco, data.idEntidade, data.nomeEntidade, data.multiplosArquivos);
+            let htmlData = header_1.default(data.validadorTce, uuid, data.parametrosBanco, data.idEntidade, data.nomeEntidade);
             fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.html`), htmlData);
         });
     }

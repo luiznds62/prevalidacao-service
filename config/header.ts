@@ -4,7 +4,6 @@ function header(
   parametrosBanco,
   idEntidade,
   nomeEntidade,
-  maisDeUmArquivo
 ) {
   let apiURL = "https://betha-pdc-prevalidacoes.herokuapp.com";
 

@@ -3,6 +3,9 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as helmet from "helmet";
+import * as hpp from "hpp";
+
+// Variáveis de Ambiente
 import { environments } from "./config/environments";
 
 // Controllers
@@ -18,6 +21,7 @@ export class Server {
         this.application = express();
         this.application.use(cors());
         this.application.use(helmet());
+        this.application.use(hpp());
         this.application.use(bodyParser.json({ limit: "50mb" }));
         this.application.use(
           bodyParser.urlencoded({ extended: true, limit: "50mb" })

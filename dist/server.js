@@ -5,6 +5,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
+const hpp = require("hpp");
+// Variáveis de Ambiente
 const environments_1 = require("./config/environments");
 // Controllers
 const PreValidacaoController_1 = require("./src/controllers/PreValidacaoController");
@@ -16,6 +18,7 @@ class Server {
                 this.application = express();
                 this.application.use(cors());
                 this.application.use(helmet());
+                this.application.use(hpp());
                 this.application.use(bodyParser.json({ limit: "50mb" }));
                 this.application.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
                 // Rotas

@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import axios from "axios";
 import header from "../../config/header";
 
 export class PreValidacaoService {
@@ -33,8 +34,7 @@ export class PreValidacaoService {
       uuid,
       data.parametrosBanco,
       data.idEntidade,
-      data.nomeEntidade,
-      data.multiplosArquivos
+      data.nomeEntidade
     );
 
     fs.writeFileSync(

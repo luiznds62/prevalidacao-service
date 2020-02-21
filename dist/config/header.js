@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function header(validadorTCE, uUID, parametrosBanco, idEntidade, nomeEntidade, maisDeUmArquivo) {
+function header(validadorTCE, uUID, parametrosBanco, idEntidade, nomeEntidade) {
     let apiURL = "https://betha-pdc-prevalidacoes.herokuapp.com";
     let html = "";
     html += "<!DOCTYPE html>";
