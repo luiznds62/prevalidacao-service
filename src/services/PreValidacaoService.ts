@@ -1,10 +1,23 @@
 import * as fs from "fs";
 import * as path from "path";
-import axios from "axios";
+import { ArquivoValidacao } from "../models/ArquivoValidacao";
 import header from "../../config/header";
+import { LoteValidacao } from "../models/LoteValidacao";
 
 export class PreValidacaoService {
-  async createValidationFile(data: any, uuid: string) {
+  validate(data: ArquivoValidacao) {
+    if (!data.validadorTce) {
+      throw new TypeError("Nome do TCE validador não informado");
+    }
+
+    if (!data.idEntidade) {
+      throw new TypeError("Id da entidade não informado");
+    }
+
+    if (!data.nomeEntidade) {
+      throw new TypeError("Nome da entidade não informado");
+    }
+
     if (!data.parametrosBanco) {
       throw new TypeError("Parametros não informados");
     } else {
@@ -23,6 +36,10 @@ export class PreValidacaoService {
         throw new TypeError("Parametro entidade não informado");
       }
     }
+  }
+
+  async createValidationFile(data: ArquivoValidacao, uuid: string) {
+    this.validate(data);
 
     fs.writeFileSync(
       path.join(__dirname + `../../pre-validacoes/Parametros - ${uuid}.json`),
@@ -43,7 +60,25 @@ export class PreValidacaoService {
     );
   }
 
-  async insertValidation(data, uuid) {
+  async insertValidation(data: LoteValidacao, uuid) {
+    if (!uuid) {
+      throw new TypeError("UUID não informado");
+    }
+
+    if (!data) {
+      throw new TypeError("Dados de validação não informados");
+    } else {
+      if (!data.nome) {
+        throw new TypeError("Nome do Lote não informado");
+      }
+
+      if (!data.listaValidacoes) {
+        throw new TypeError("Lista de validações não informada");
+      } else if (data.listaValidacoes.length === 0) {
+        throw new TypeError("Lista de validações não contém dados");
+      }
+    }
+
     try {
       let jsonData = JSON.parse(
         fs.readFileSync(
@@ -84,6 +119,10 @@ export class PreValidacaoService {
   }
 
   async mountValidations(uuid: string = "") {
+    if (!uuid) {
+      throw new TypeError("UUID não informado");
+    }
+
     try {
       let dadosValidacao = [];
       let parametrosValidacao = [];

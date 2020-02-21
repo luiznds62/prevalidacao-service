@@ -13,25 +13,37 @@ const fs = require("fs");
 const path = require("path");
 const header_1 = require("../../config/header");
 class PreValidacaoService {
+    validate(data) {
+        if (!data.validadorTce) {
+            throw new TypeError("Nome do TCE validador não informado");
+        }
+        if (!data.idEntidade) {
+            throw new TypeError("Id da entidade não informado");
+        }
+        if (!data.nomeEntidade) {
+            throw new TypeError("Nome da entidade não informado");
+        }
+        if (!data.parametrosBanco) {
+            throw new TypeError("Parametros não informados");
+        }
+        else {
+            let mes = data.parametrosBanco.find(par => par.nome == "Mes");
+            if (!mes) {
+                throw new TypeError("Parametro mês não informado");
+            }
+            let ano = data.parametrosBanco.find(par => par.nome == "Ano");
+            if (!ano) {
+                throw new TypeError("Parametro ano não informado");
+            }
+            let entidade = data.parametrosBanco.find(par => par.nome == "Entidade");
+            if (!entidade) {
+                throw new TypeError("Parametro entidade não informado");
+            }
+        }
+    }
     createValidationFile(data, uuid) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!data.parametrosBanco) {
-                throw new TypeError("Parametros não informados");
-            }
-            else {
-                let mes = data.parametrosBanco.find(par => par.nome == "Mes");
-                if (!mes) {
-                    throw new TypeError("Parametro mês não informado");
-                }
-                let ano = data.parametrosBanco.find(par => par.nome == "Ano");
-                if (!ano) {
-                    throw new TypeError("Parametro ano não informado");
-                }
-                let entidade = data.parametrosBanco.find(par => par.nome == "Entidade");
-                if (!entidade) {
-                    throw new TypeError("Parametro entidade não informado");
-                }
-            }
+            this.validate(data);
             fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/Parametros - ${uuid}.json`), JSON.stringify(data.parametrosBanco));
             let htmlData = header_1.default(data.validadorTce, uuid, data.parametrosBanco, data.idEntidade, data.nomeEntidade);
             fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.html`), htmlData);
@@ -39,6 +51,23 @@ class PreValidacaoService {
     }
     insertValidation(data, uuid) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!uuid) {
+                throw new TypeError("UUID não informado");
+            }
+            if (!data) {
+                throw new TypeError("Dados de validação não informados");
+            }
+            else {
+                if (!data.nome) {
+                    throw new TypeError("Nome do Lote não informado");
+                }
+                if (!data.listaValidacoes) {
+                    throw new TypeError("Lista de validações não informada");
+                }
+                else if (data.listaValidacoes.length === 0) {
+                    throw new TypeError("Lista de validações não contém dados");
+                }
+            }
             try {
                 let jsonData = JSON.parse(fs.readFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.json`), "utf-8"));
                 let newData = "";
@@ -67,6 +96,9 @@ class PreValidacaoService {
     }
     mountValidations(uuid = "") {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!uuid) {
+                throw new TypeError("UUID não informado");
+            }
             try {
                 let dadosValidacao = [];
                 let parametrosValidacao = [];
