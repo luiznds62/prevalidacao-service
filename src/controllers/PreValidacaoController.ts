@@ -57,11 +57,4 @@ router.get("/:uuid", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  res.send({
-    origin: req.get("origin"),
-    host: req.get("host")
-  });
-});
-
 export default router;

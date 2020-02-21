@@ -85,21 +85,36 @@ export class PreValidacaoService {
 
   async mountValidations(uuid: string = "") {
     try {
-      let dadosValidacao = JSON.parse(
-        fs.readFileSync(
-          path.join(__dirname + `../../pre-validacoes/${uuid}.json`),
-          "utf-8"
-        )
-      );
+      let dadosValidacao = [];
+      let parametrosValidacao = [];
 
-      let parametrosValidacao = JSON.parse(
-        fs.readFileSync(
-          path.join(
-            __dirname + `../../pre-validacoes/Parametros - ${uuid}.json`
-          ),
-          "utf-8"
-        )
-      );
+      try {
+        dadosValidacao = JSON.parse(
+          fs.readFileSync(
+            path.join(__dirname + `../../pre-validacoes/${uuid}.json`),
+            "utf-8"
+          )
+        );
+      } catch (error) {
+        throw new TypeError(
+          "Não foram encontradas validações para gerar o arquivo"
+        );
+      }
+
+      try {
+        parametrosValidacao = JSON.parse(
+          fs.readFileSync(
+            path.join(
+              __dirname + `../../pre-validacoes/Parametros - ${uuid}.json`
+            ),
+            "utf-8"
+          )
+        );
+      } catch (error) {
+        throw new TypeError(
+          "Não foram encontradas validações para gerar o arquivo"
+        );
+      }
 
       let htmlData = fs.readFileSync(
         path.join(__dirname + `../../pre-validacoes/${uuid}.html`),

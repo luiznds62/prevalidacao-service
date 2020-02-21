@@ -50,11 +50,5 @@ router.get("/:uuid", (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send(new ResponseBuilder_1.ResponseBuilder(false, error.message));
     }
 }));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send({
-        origin: req.get("origin"),
-        host: req.get("host")
-    });
-}));
 exports.default = router;
 //# sourceMappingURL=PreValidacaoController.js.map
