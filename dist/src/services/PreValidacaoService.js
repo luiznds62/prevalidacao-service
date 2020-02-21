@@ -61,7 +61,7 @@ class PreValidacaoService {
                 fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.json`), newData);
             }
             catch (error) {
-                fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.json`), JSON.stringify(data));
+                fs.writeFileSync(path.join(__dirname + `../../pre-validacoes/${uuid}.json`), `[${JSON.stringify(data)}]`);
             }
         });
     }

@@ -78,7 +78,7 @@ export class PreValidacaoService {
     } catch (error) {
       fs.writeFileSync(
         path.join(__dirname + `../../pre-validacoes/${uuid}.json`),
-        JSON.stringify(data)
+        `[${JSON.stringify(data)}]`
       );
     }
   }
