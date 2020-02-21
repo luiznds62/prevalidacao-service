@@ -20,14 +20,16 @@
   ],
   "author": "Luiz Henrique Naspolini",
   "dependencies": {
+    "ajv": "^6.11.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.0",
     "express": "4.14.0",
+    "fresh": "^0.5.2",
     "helmet": "^3.21.2",
     "hpp": "^0.2.3",
-    "uuid": "^3.4.0",
-    "fresh": "^0.5.2",
-    "mime": "^1.4.1"
+    "jsonwebtoken": "^8.5.1",
+    "mime": "^1.4.1",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.2",

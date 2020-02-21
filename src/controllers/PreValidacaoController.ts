@@ -2,9 +2,11 @@ import * as express from "express";
 import * as path from "path";
 import { PreValidacaoService } from "../services/PreValidacaoService";
 import { ResponseBuilder } from "../common/ResponseBuilder";
+import AuthMiddleware from "../middlewares/AuthMiddleware";
 
 let preValidacaoService = new PreValidacaoService();
 let router = express.Router();
+router.use(AuthMiddleware);
 
 router.post("/:uuid", async (req, res) => {
   try {

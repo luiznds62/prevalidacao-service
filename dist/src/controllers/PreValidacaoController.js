@@ -13,8 +13,10 @@ const express = require("express");
 const path = require("path");
 const PreValidacaoService_1 = require("../services/PreValidacaoService");
 const ResponseBuilder_1 = require("../common/ResponseBuilder");
+const AuthMiddleware_1 = require("../middlewares/AuthMiddleware");
 let preValidacaoService = new PreValidacaoService_1.PreValidacaoService();
 let router = express.Router();
+router.use(AuthMiddleware_1.default);
 router.post("/:uuid", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let createdFie = yield preValidacaoService.createValidationFile(req.body, req.params.uuid);

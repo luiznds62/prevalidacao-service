@@ -8,8 +8,13 @@ import * as hpp from "hpp";
 // Variáveis de Ambiente
 import { environments } from "./config/environments";
 
+// Middlewares
+import globalMiddleware from "./src/middlewares/GlobalMiddleware";
+
 // Controllers
 import prevalidacao from "./src/controllers/PreValidacaoController";
+import autenticacao from "./src/controllers/AuthController";
+
 import { ResponseBuilder } from "./src/common/ResponseBuilder";
 
 export class Server {
@@ -22,6 +27,7 @@ export class Server {
         this.application.use(cors());
         this.application.use(helmet());
         this.application.use(hpp());
+        this.application.use(globalMiddleware);
         this.application.use(bodyParser.json({ limit: "50mb" }));
         this.application.use(
           bodyParser.urlencoded({ extended: true, limit: "50mb" })
@@ -30,6 +36,7 @@ export class Server {
         // Rotas
         let versao = "/api/v1";
         this.application.use(versao + "/prevalidacao", prevalidacao);
+        this.application.use(versao + "/auth", autenticacao);
 
         this.application.get("/", (req, res) => {
           res.send(new ResponseBuilder(false, "Endpoint inválido"));
