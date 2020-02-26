@@ -10,11 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const RateLimiter_1 = require("../common/RateLimiter");
 const ResponseBuilder_1 = require("../common/ResponseBuilder");
 const AuthService_1 = require("../services/AuthService");
 const authService = new AuthService_1.AuthService();
 let router = express.Router();
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", RateLimiter_1.default(60 * 1000, 20, "Excedido número de autenticações por minuto"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let token = yield authService.auth(req.body);
         res.send(new ResponseBuilder_1.ResponseBuilder(true, "Autenticado com sucesso", token));

@@ -4,6 +4,7 @@ import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as helmet from "helmet";
 import * as hpp from "hpp";
+import * as expressSanitized from "express-sanitized";
 
 // Variáveis de Ambiente
 import { environments } from "./config/environments";
@@ -32,6 +33,7 @@ export class Server {
         this.application.use(
           bodyParser.urlencoded({ extended: true, limit: "50mb" })
         );
+        this.application.use(expressSanitized());
 
         // Rotas
         let versao = "/api/v1";

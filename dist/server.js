@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const hpp = require("hpp");
+const expressSanitized = require("express-sanitized");
 // Variáveis de Ambiente
 const environments_1 = require("./config/environments");
 // Middlewares
@@ -25,6 +26,7 @@ class Server {
                 this.application.use(GlobalMiddleware_1.default);
                 this.application.use(bodyParser.json({ limit: "50mb" }));
                 this.application.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+                this.application.use(expressSanitized());
                 // Rotas
                 let versao = "/api/v1";
                 this.application.use(versao + "/prevalidacao", PreValidacaoController_1.default);
