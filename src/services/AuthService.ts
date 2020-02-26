@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import authConfig from "../../config/auth";
 
 export class AuthService {
-  private gerarToken(params = {}) {
+  private generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret, {
       expiresIn: 86400
     });
@@ -27,7 +27,7 @@ export class AuthService {
       }
 
       return {
-        token: this.gerarToken({ id: Math.floor(Math.random() * 657) })
+        token: this.generateToken({ id: Math.floor(Math.random() * 657) })
       };
     } catch (err) {
       throw new TypeError(`${err.message}`);
